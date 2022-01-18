@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CoreExtensions",
+        "repositoryURL": "https://github.com/aetherealtech/SwiftCoreExtensions.git",
+        "state": {
+          "branch": "master",
+          "revision": "74142ce2cb3c3a0a586d0587cfbd192cb28799e8",
+          "version": null
+        }
+      },
+      {
+        "package": "Scheduling",
+        "repositoryURL": "https://github.com/aetherealtech/SwiftScheduling.git",
+        "state": {
+          "branch": "master",
+          "revision": "fda79bde1bb177c625e8d54d8fbc086382532bf8",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
