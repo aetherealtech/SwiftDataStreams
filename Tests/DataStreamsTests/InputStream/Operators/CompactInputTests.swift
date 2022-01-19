@@ -9,7 +9,7 @@ import XCTest
 @testable import DataStreams
 
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-class CompactTests: XCTestCase {
+class CompactInputTests: XCTestCase {
 
     func testCompact() async throws {
 
@@ -27,9 +27,9 @@ class CompactTests: XCTestCase {
         ]
 
         let sourceStream = source.asStream()
-            .compact()
+            .compactIn()
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: source.compact()
         )

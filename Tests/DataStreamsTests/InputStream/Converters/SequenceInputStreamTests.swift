@@ -19,7 +19,7 @@ class SequenceInputStreamTests: XCTestCase {
 
         let sourceStream = source.asStream()
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: sourceCopy,
             limit: 100

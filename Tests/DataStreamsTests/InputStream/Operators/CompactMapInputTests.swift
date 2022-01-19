@@ -9,7 +9,7 @@ import XCTest
 @testable import DataStreams
 
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-class MapInputTests: XCTestCase {
+class CompactMapInputTests: XCTestCase {
 
     func testMap() async throws {
 
@@ -26,14 +26,14 @@ class MapInputTests: XCTestCase {
             10
         ]
 
-        let transform: (Int) -> String = { value in "\(value)" }
+        let transform: (Int) -> String? = { value in value % 3 == 0 ? "\(value)" : nil }
         
         let sourceStream = source.asStream()
-            .map(transform)
+            .compactMapIn(transform)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
-            expectedElements: source.map(transform)
+            expectedElements: source.compactMap(transform)
         )
     }
 }

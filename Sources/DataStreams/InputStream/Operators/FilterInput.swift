@@ -7,7 +7,7 @@ import Foundation
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
-    public func filter(_ condition: @escaping ((Datum) async throws -> Bool)) -> AnyInputStream<Datum> {
+    public func filterIn(_ condition: @escaping ((Datum) async throws -> Bool)) -> AnyInputStream<Datum> {
 
         FilteredInputStream(
             source: self,

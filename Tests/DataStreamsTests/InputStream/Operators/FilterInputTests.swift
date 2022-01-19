@@ -29,9 +29,9 @@ class FilterInputTests: XCTestCase {
         let filter: (Int) -> Bool = { value in value % 3 == 0 }
 
         let sourceStream = source.asStream()
-            .filter(filter)
+            .filterIn(filter)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: source.filter(filter)
         )

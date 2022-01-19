@@ -35,7 +35,7 @@ class FlatMapInputTests: XCTestCase {
         let sourceStream = source.asStream()
             .flatMap { value in transform(value).asStream() }
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: source.flatMap(transform)
         )

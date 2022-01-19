@@ -25,7 +25,7 @@ class CollectionInputStreamTests: XCTestCase {
 
         let sourceStream = source.asStream()
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: source
         )
@@ -48,7 +48,7 @@ class CollectionInputStreamTests: XCTestCase {
 
         let sourceStream = source.asStream()
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: source,
             equater: { (kvp1, kvp2) in kvp1.key == kvp2.key && kvp1.value == kvp2.value }
@@ -61,7 +61,7 @@ class CollectionInputStreamTests: XCTestCase {
 
         let sourceStream = source.asStream()
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: source
         )

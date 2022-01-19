@@ -7,12 +7,12 @@ import Foundation
 import CoreExtensions
 
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-extension InputStream where Datum: OptionalProtocol {
+extension OutputStream {
 
-    public func compactIn() -> AnyInputStream<Datum.Wrapped> {
+    public func compactOut() -> AnyOutputStream<Datum?> {
 
         self
-            .filterIn { datum in datum != nil }
             .map { datum in datum.unsafelyUnwrapped }
+            .filterOut { datum in datum != nil }
     }
 }

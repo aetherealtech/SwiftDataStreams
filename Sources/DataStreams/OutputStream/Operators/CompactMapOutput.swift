@@ -5,12 +5,12 @@
 import Foundation
 
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-extension InputStream {
+extension OutputStream {
 
-    public func compactMapIn<Result>(_ transform: @escaping ((Datum) async throws -> Result?)) -> AnyInputStream<Result> {
+    public func compactMapOut<Source>(_ transform: @escaping ((Source) async throws -> Datum?)) -> AnyOutputStream<Source> {
 
         self
+            .compactOut()
             .map(transform)
-            .compactIn()
     }
 }

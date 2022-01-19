@@ -35,7 +35,7 @@ class CollectInputTests: XCTestCase {
         let sourceStream = source.asStream()
             .collect(count: 4, padding: 0)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: expectedResult
         )
@@ -64,7 +64,7 @@ class CollectInputTests: XCTestCase {
         let sourceStream = source.asStream()
             .collect(count: 4)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: expectedResult
         )
@@ -95,7 +95,7 @@ class CollectInputTests: XCTestCase {
         let sourceStream = source.asStream()
             .collect(count: 4, stride: 2)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: expectedResult
         )

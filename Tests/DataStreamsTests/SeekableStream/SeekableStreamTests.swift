@@ -34,7 +34,7 @@ class SeekableStreamTests: XCTestCase {
         var succeeded = try await sourceStream.seek(position: .beginning)
         XCTAssertTrue(succeeded)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: source
         )
@@ -42,7 +42,7 @@ class SeekableStreamTests: XCTestCase {
         succeeded = try await sourceStream.seek(position: .beginning, offset: 5)
         XCTAssertTrue(succeeded)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: sourceSlice
         )
@@ -77,7 +77,7 @@ class SeekableStreamTests: XCTestCase {
             expected[i] = value
         }
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: expected[3..<10]
         )
@@ -85,7 +85,7 @@ class SeekableStreamTests: XCTestCase {
         succeeded = try await sourceStream.seek(position: .beginning)
         XCTAssertTrue(succeeded)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: expected
         )
@@ -99,7 +99,7 @@ class SeekableStreamTests: XCTestCase {
             expected[i] = value
         }
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: []
         )
@@ -107,7 +107,7 @@ class SeekableStreamTests: XCTestCase {
         succeeded = try await sourceStream.seek(position: .beginning)
         XCTAssertTrue(succeeded)
 
-        try await testStream(
+        try await testInputStream(
             stream: sourceStream,
             expectedElements: expected
         )
