@@ -27,7 +27,22 @@ class AsyncSequenceInputStream<Source: AsyncSequence> : InputStream {
 
     func hasMore() async throws -> Bool {
 
-         (try? await getNext()) != nil
+        do {
+
+            _ = try await getNext()
+            return true
+
+        } catch(let error) {
+
+            switch(error) {
+
+            case is EndOfStreamError:
+                return false
+
+            default:
+                throw error
+            }
+        }
     }
 
     func read() async throws -> Datum {
@@ -49,20 +64,43 @@ class AsyncSequenceInputStream<Source: AsyncSequence> : InputStream {
 
     func getNext() async throws -> Datum {
 
-        guard let next = try await self.next ??= try await current.next() else {
+        guard let next = await self.next ??= await fetchNext() else {
             throw EndOfStreamError()
         }
 
-        return next
+        switch next {
+
+        case .success(let value):
+            return value
+
+        case .failure(let error):
+            throw error
+        }
     }
-    
+
     func consumeNext() async throws -> Datum {
 
         let next = try await getNext()
         self.next = nil
         return next
     }
-    
+
+    func fetchNext() async -> Result<Datum, Error>? {
+
+        do {
+
+            guard let next = try await current.next() else {
+                return nil
+            }
+
+            return .success(next)
+
+        } catch(let error) {
+
+            return .failure(error)
+        }
+    }
+
     var current: Source.AsyncIterator
-    var next: Datum?
+    var next: Result<Datum, Error>?
 }

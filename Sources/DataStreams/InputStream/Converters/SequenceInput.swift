@@ -27,7 +27,22 @@ class SequenceInputStream<Source: Sequence> : InputStream {
 
     func hasMore() async throws -> Bool {
 
-         (try? getNext()) != nil
+        do {
+
+            _ = try getNext()
+            return true
+
+        } catch(let error) {
+
+            switch(error) {
+
+            case is EndOfStreamError:
+                return false
+
+            default:
+                throw error
+            }
+        }
     }
 
     func read() async throws -> Datum {
