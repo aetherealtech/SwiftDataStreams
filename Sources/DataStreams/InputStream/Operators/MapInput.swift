@@ -7,7 +7,7 @@ import Foundation
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
-    public func map<Result>(_ transform: @escaping ((Datum) async throws -> Result)) -> AnyInputStream<Result> {
+    public func map<Result>(_ transform: @escaping (Datum) async throws -> Result) -> AnyInputStream<Result> {
 
         MappedInputStream(
             source: self,
@@ -23,7 +23,7 @@ class MappedInputStream<Source, Result> : InputStream {
 
     init<SourceStream: InputStream>(
         source: SourceStream,
-        transform: @escaping ((Source) async throws -> Result)
+        transform: @escaping (Source) async throws -> Result
     ) where SourceStream.Datum == Source {
 
         self.source = source.erase()

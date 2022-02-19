@@ -7,7 +7,7 @@ import Foundation
 @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension OutputStream {
 
-    public func filterOut(_ condition: @escaping ((Datum) async throws -> Bool)) -> AnyOutputStream<Datum> {
+    public func filterOut(_ condition: @escaping (Datum) async throws -> Bool) -> AnyOutputStream<Datum> {
 
         FilteredOutputStream(
             destination: self,
@@ -21,7 +21,7 @@ class FilteredOutputStream<Datum> : OutputStream {
 
     init<SourceStream: OutputStream>(
         destination: SourceStream,
-        condition: @escaping ((Datum) async throws -> Bool)
+        condition: @escaping (Datum) async throws -> Bool
     ) where SourceStream.Datum == Datum {
 
         self.destination = destination.erase()
