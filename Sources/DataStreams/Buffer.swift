@@ -9,6 +9,11 @@ class Buffer<Element> : Sequence, IteratorProtocol {
 
     typealias Iterator = Buffer<Element>
 
+    var isEmpty: Bool {
+
+        data.isEmpty
+    }
+
     var count: Int {
 
         data.count

@@ -15,6 +15,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/aetherealtech/SwiftCoreExtensions.git", .branch("master")),
+        .package(url: "https://github.com/aetherealtech/SwiftEventStreams.git", .branch("master")),
         .package(url: "https://github.com/aetherealtech/SwiftScheduling.git", .branch("master")),
     ],
     targets: [
@@ -24,6 +25,7 @@ let package = Package(
             name: "DataStreams",
             dependencies: [
                 .product(name: "CoreExtensions", package: "SwiftCoreExtensions"),
+                .product(name: "EventStreams", package: "SwiftEventStreams"),
                 .product(name: "Scheduling", package: "SwiftScheduling"),
             ]),
         .testTarget(

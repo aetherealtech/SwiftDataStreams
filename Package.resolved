@@ -6,7 +6,25 @@
         "repositoryURL": "https://github.com/aetherealtech/SwiftCoreExtensions.git",
         "state": {
           "branch": "master",
-          "revision": "74142ce2cb3c3a0a586d0587cfbd192cb28799e8",
+          "revision": "fcea23b97da54862a6bb6ebe0808d66acc8817f5",
+          "version": null
+        }
+      },
+      {
+        "package": "EventStreams",
+        "repositoryURL": "https://github.com/aetherealtech/SwiftEventStreams.git",
+        "state": {
+          "branch": "master",
+          "revision": "7f2790918dbe5bfa2e3a9cf341e1b052606ace7a",
+          "version": null
+        }
+      },
+      {
+        "package": "Observer",
+        "repositoryURL": "https://github.com/aetherealtech/SwiftObserver.git",
+        "state": {
+          "branch": "master",
+          "revision": "596f431f0561e7ea59b81c17ae1bf11c1d56084e",
           "version": null
         }
       },
