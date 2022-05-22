@@ -6,7 +6,6 @@ import Foundation
 
 import CoreExtensions
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension AsyncSequence {
 
     func asStream() -> AnyInputStream<Element> {
@@ -15,7 +14,6 @@ extension AsyncSequence {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class AsyncSequenceInputStream<Source: AsyncSequence> : InputStream {
 
     typealias Datum = Source.Element

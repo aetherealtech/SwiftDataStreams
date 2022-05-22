@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func connect<Output: OutputStream>(to destination: Output) -> Task<Void, Error> where Output.Datum == Datum {

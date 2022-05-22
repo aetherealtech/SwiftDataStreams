@@ -9,7 +9,6 @@ import XCTest
 
 @testable import DataStreams
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 func testInputStream<Stream: DataStreams.InputStream, Source: Collection>(
     stream: Stream,
     expectedElements: Source
@@ -22,7 +21,6 @@ func testInputStream<Stream: DataStreams.InputStream, Source: Collection>(
     )
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 func testInputStream<Stream: DataStreams.InputStream, Source: Collection>(
     stream: Stream,
     expectedElements: Source,
@@ -41,7 +39,6 @@ func testInputStream<Stream: DataStreams.InputStream, Source: Collection>(
     )
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 func testInputStream<Stream: DataStreams.InputStream, Source: Sequence>(
     stream: Stream,
     expectedElements: Source,
@@ -60,7 +57,6 @@ func testInputStream<Stream: DataStreams.InputStream, Source: Sequence>(
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 func testOutputStream<Stream: DataStreams.OutputStream, Source: Collection, Expected: Collection>(
     stream: Stream,
     source: Source,
@@ -77,7 +73,6 @@ func testOutputStream<Stream: DataStreams.OutputStream, Source: Collection, Expe
     )
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 func testOutputStream<Stream: DataStreams.OutputStream, Source: Collection, Expected: Collection>(
     stream: Stream,
     source: Source,

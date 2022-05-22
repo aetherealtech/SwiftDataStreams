@@ -8,14 +8,12 @@ import CoreExtensions
 
 extension Sequence {
 
-    @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
-    func asStream() -> AnyInputStream<Element> {
+        func asStream() -> AnyInputStream<Element> {
 
         SequenceInputStream(source: self).erase()
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class SequenceInputStream<Source: Sequence> : InputStream {
 
     typealias Datum = Source.Element

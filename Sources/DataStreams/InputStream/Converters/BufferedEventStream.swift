@@ -7,7 +7,6 @@ import CoreExtensions
 import EventStreams
 import Observer
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension EventStream {
 
     public func buffered() -> AnyInputStream<Event<Value>> {
@@ -17,7 +16,6 @@ extension EventStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class BufferedEventStream<Value> : InputStream {
 
     public typealias Datum = Event<Value>

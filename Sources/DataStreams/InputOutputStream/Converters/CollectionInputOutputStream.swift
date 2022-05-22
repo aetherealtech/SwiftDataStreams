@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class CollectionInputOutputStream<Source: RangeReplaceableCollection> : CollectionInputStream<Source>, OutputStream {
 
     public func write(_ datum: Datum) async throws {
@@ -24,7 +23,6 @@ public class CollectionInputOutputStream<Source: RangeReplaceableCollection> : C
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension RangeReplaceableCollection {
 
     public func asStream() -> CollectionInputOutputStream<Self> {

@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func map<Result>(_ transform: @escaping (Datum) async throws -> Result) -> AnyInputStream<Result> {
@@ -16,7 +15,6 @@ extension InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class MappedInputStream<Source, Result> : InputStream {
 
     typealias Datum = Result

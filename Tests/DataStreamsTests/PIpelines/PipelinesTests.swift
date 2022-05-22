@@ -10,7 +10,6 @@ import CoreExtensions
 
 @testable import DataStreams
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension Task {
 
     func finish() async throws -> Void where Success == Void, Failure == Error {
@@ -24,7 +23,6 @@ extension Task {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class PipelinesTests: XCTestCase {
 
     func testConnect() async throws {

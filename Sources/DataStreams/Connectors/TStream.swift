@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func tStream<Output>(output: Output) -> AnyInputStream<Datum> where Output: OutputStream, Output.Datum == Datum {
@@ -16,7 +15,6 @@ extension InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class TStream<Input: InputStream, Output: OutputStream> : InputStream where Output.Datum == Input.Datum {
 
     typealias Datum = Input.Datum

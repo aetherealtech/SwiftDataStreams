@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func collect(
@@ -34,7 +33,6 @@ extension InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class CollectedInputStream<SourceDatum> : InputStream {
 
     typealias Datum = [SourceDatum]

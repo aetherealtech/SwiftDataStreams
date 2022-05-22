@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension OutputStream {
 
     public func filterOut(_ condition: @escaping (Datum) async throws -> Bool) -> AnyOutputStream<Datum> {
@@ -16,7 +15,6 @@ extension OutputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class FilteredOutputStream<Datum> : OutputStream {
 
     init<SourceStream: OutputStream>(

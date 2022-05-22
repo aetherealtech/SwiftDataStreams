@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 typealias StringStream = AnyInputStream<Character>
 
 class UnicodeEncodeError : Error {
@@ -15,7 +14,6 @@ class UnicodeDecodeError : Error {
 
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Datum == Unicode.UTF8.CodeUnit {
 
     func utf8String() -> UnicodeEncodingStream<Unicode.UTF8> {
@@ -24,7 +22,6 @@ extension InputStream where Datum == Unicode.UTF8.CodeUnit {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Datum == Unicode.UTF16.CodeUnit {
 
     func utf16String() -> UnicodeEncodingStream<Unicode.UTF16> {
@@ -33,7 +30,6 @@ extension InputStream where Datum == Unicode.UTF16.CodeUnit {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Datum == Unicode.UTF32.CodeUnit {
 
     func utf32String() -> UnicodeEncodingStream<Unicode.UTF32> {
@@ -42,7 +38,6 @@ extension InputStream where Datum == Unicode.UTF32.CodeUnit {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class UnicodeEncodingStream<Codec: UnicodeCodec> : InputStream {
 
     typealias Datum = Character
@@ -261,7 +256,6 @@ class UnicodeEncodingStream<Codec: UnicodeCodec> : InputStream {
 //    private let readThread = LoopingThread()
 //}
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Datum == Character {
 
     func utf8Characters() -> UnicodeDecodingStream<Unicode.UTF8> {
@@ -280,7 +274,6 @@ extension InputStream where Datum == Character {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class UnicodeDecodingStream<Codec: UnicodeCodec> : InputStream {
 
     typealias Datum = Codec.CodeUnit

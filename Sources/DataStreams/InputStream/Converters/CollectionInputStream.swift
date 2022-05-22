@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension Collection {
 
     public func asStream() -> CollectionInputStream<Self> {
@@ -13,7 +12,6 @@ extension Collection {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class CollectionInputStream<Source: Collection> : SeekableInputStream {
 
     public typealias Datum = Source.Element

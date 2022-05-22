@@ -4,10 +4,8 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public typealias InputOutputStream = DataStreams.InputStream & DataStreams.OutputStream
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class AnyInputOutputStream<Datum> : InputOutputStream {
 
     public func hasMore() async throws -> Bool {
@@ -45,7 +43,6 @@ public class AnyInputOutputStream<Datum> : InputOutputStream {
     private let outputStream: AnyOutputStream<Datum>
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Self: OutputStream {
 
     public func erase() -> AnyInputOutputStream<Datum> {

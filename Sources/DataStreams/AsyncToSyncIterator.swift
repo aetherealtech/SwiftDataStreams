@@ -14,7 +14,6 @@ class Reference<T> {
     var value: T
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class AsyncToSyncIterator<Source: AsyncIteratorProtocol> : IteratorProtocol {
 
     typealias Element = Source.Element
@@ -36,7 +35,6 @@ class AsyncToSyncIterator<Source: AsyncIteratorProtocol> : IteratorProtocol {
     private var source: Source
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension Task {
 
     var synchronousValue: Success {

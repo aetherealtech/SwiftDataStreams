@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public protocol InputStream : AnyObject, AsyncSequence, AsyncIteratorProtocol where Element == Datum {
 
     associatedtype Datum
@@ -20,7 +19,6 @@ public struct EndOfStreamError : Error {
 
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func readInto(buffer: UnsafeMutableBufferPointer<Datum>) async throws -> Int {
@@ -89,7 +87,6 @@ extension InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class AnyInputStream<Datum> : InputStream {
 
     public func hasMore() async throws -> Bool {
@@ -119,7 +116,6 @@ public class AnyInputStream<Datum> : InputStream {
     private let skipImp: (Int) async throws -> Int
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func erase() -> AnyInputStream<Datum> {

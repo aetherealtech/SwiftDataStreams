@@ -10,7 +10,6 @@ public enum StreamPosition : Int {
     case end = 2
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public protocol SeekableStream {
 
     var position: Int { get }
@@ -18,16 +17,12 @@ public protocol SeekableStream {
     func seek(position: Int) async throws -> Bool
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public typealias SeekableInputStream = InputStream & SeekableStream
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public typealias SeekableOutputStream = OutputStream & SeekableStream
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public typealias SeekableInputOutputStream = SeekableInputStream & SeekableOutputStream
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class AnySeekableInputStream<Datum> : AnyInputStream<Datum>, SeekableStream {
 
     public var position: Int { seekableStream.position }
@@ -46,7 +41,6 @@ public class AnySeekableInputStream<Datum> : AnyInputStream<Datum>, SeekableStre
     private let seekableStream: SeekableStream
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class AnySeekableOutputStream<Datum> : AnyOutputStream<Datum>, SeekableStream {
 
     public var position: Int { seekableStream.position }
@@ -65,7 +59,6 @@ public class AnySeekableOutputStream<Datum> : AnyOutputStream<Datum>, SeekableSt
     private let seekableStream: SeekableStream
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Self: SeekableStream {
 
     public func erase() -> AnySeekableInputStream<Datum> {
@@ -74,7 +67,6 @@ extension InputStream where Self: SeekableStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension OutputStream where Self: SeekableStream {
 
     public func erase() -> AnySeekableOutputStream<Datum> {
@@ -83,7 +75,6 @@ extension OutputStream where Self: SeekableStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class AnySeekableInputOutputStream<Datum> : SeekableInputOutputStream {
 
     public func hasMore() async throws -> Bool {
@@ -121,7 +112,6 @@ public class AnySeekableInputOutputStream<Datum> : SeekableInputOutputStream {
     private let seekableStream: SeekableStream
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension OutputStream where Self: InputStream & SeekableStream {
 
     public func erase() -> AnySeekableInputOutputStream<Datum> {
@@ -130,7 +120,6 @@ extension OutputStream where Self: InputStream & SeekableStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension SeekableStream {
 
     public func seek(position: StreamPosition) async throws -> Bool {

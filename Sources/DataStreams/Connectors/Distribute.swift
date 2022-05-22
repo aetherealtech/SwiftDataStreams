@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension Collection where Element: OutputStream {
 
     public func distributed() -> AnyOutputStream<Element.Datum> {
@@ -15,7 +14,6 @@ extension Collection where Element: OutputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class DistributeOutputStream<DestinationStreams: Collection> : OutputStream where DestinationStreams.Element: OutputStream {
 
     typealias Datum = DestinationStreams.Element.Datum

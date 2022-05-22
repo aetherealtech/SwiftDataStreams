@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     func buffered() -> AnySeekableInputStream<Datum> {
@@ -13,7 +12,6 @@ extension InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Self: SeekableStream {
 
     func buffered() -> AnySeekableInputStream<Datum> {
@@ -22,7 +20,6 @@ extension InputStream where Self: SeekableStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class BufferedInputStream<Datum> : SeekableInputStream {
 
     init<Source: InputStream>(source: Source) where Source.Datum == Datum {

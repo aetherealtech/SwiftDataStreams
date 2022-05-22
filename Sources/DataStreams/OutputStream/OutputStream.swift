@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public protocol OutputStream : AnyObject {
 
     associatedtype Datum
@@ -14,7 +13,6 @@ public protocol OutputStream : AnyObject {
     func flush() async throws
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension OutputStream {
 
     public func writeFrom(buffer: UnsafeMutableBufferPointer<Datum>) async throws {
@@ -38,7 +36,6 @@ extension OutputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class AnyOutputStream<Datum> : OutputStream {
 
     public func write(_ datum: Datum) async throws {
@@ -61,7 +58,6 @@ public class AnyOutputStream<Datum> : OutputStream {
     private let flushImp: () async throws -> Void
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension OutputStream {
 
     public func erase() -> AnyOutputStream<Datum> {

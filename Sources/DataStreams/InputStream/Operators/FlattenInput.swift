@@ -6,7 +6,6 @@ import Foundation
 
 import CoreExtensions
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream where Datum: InputStream {
 
     public func flatten() -> AnyInputStream<Datum.Datum> {
@@ -17,7 +16,6 @@ extension InputStream where Datum: InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension Sequence where Element: InputStream {
 
     public func flatten() -> AnyInputStream<Element.Datum> {
@@ -27,7 +25,6 @@ extension Sequence where Element: InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 class FlattenInputStream<SourceStream: InputStream> : InputStream where SourceStream.Datum: InputStream {
 
     typealias Datum = SourceStream.Datum.Datum

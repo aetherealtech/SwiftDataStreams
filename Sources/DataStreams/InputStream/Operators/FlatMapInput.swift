@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func flatMap<ResultStream: InputStream>(_ transform: @escaping (Datum) async throws -> ResultStream) -> AnyInputStream<ResultStream.Datum> {
@@ -15,7 +14,6 @@ extension InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension Sequence {
 
     public func flatMap<ResultStream: InputStream>(_ transform: @escaping (Element) async throws -> ResultStream) -> AnyInputStream<ResultStream.Datum> {

@@ -6,7 +6,6 @@ import Foundation
 import EventStreams
 import Observer
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 extension InputStream {
 
     public func broadcast() -> EventStream<Datum> {
@@ -27,7 +26,6 @@ extension InputStream {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
 public class BroadcastInputStream<Source: InputStream> {
 
     public typealias Value = Source.Datum
