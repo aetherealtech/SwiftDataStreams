@@ -8,7 +8,7 @@ import CoreExtensions
 
 extension Sequence {
 
-        func asStream() -> AnyInputStream<Element> {
+    func asStream() -> AnyInputStream<Element> {
 
         SequenceInputStream(source: self).erase()
     }
@@ -68,14 +68,14 @@ class SequenceInputStream<Source: Sequence> : InputStream {
 
         return next
     }
-    
+
     func consumeNext() throws -> Datum {
 
         let next = try getNext()
         self.next = nil
         return next
     }
-    
+
     var current: Source.Iterator
     var next: Datum?
 }

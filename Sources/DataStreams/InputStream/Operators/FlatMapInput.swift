@@ -12,6 +12,12 @@ extension InputStream {
             .map(transform)
             .flatten()
     }
+
+    public func flatMap<ResultSequence: Sequence>(_ transform: @escaping (Datum) async throws -> ResultSequence) -> AnyInputStream<ResultSequence.Element> {
+
+        self
+            .flatMap { datum in try await transform(datum).asStream() }
+    }
 }
 
 extension Sequence {

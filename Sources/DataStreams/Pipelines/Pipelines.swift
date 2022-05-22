@@ -12,10 +12,14 @@ extension InputStream {
 
             for try await datum in self {
 
+                guard !Task.isCancelled else {
+                    break
+                }
+
                 try await destination.write(datum)
             }
 
-            print("TEST")
+            try await destination.flush()
         }
     }
 
@@ -31,6 +35,10 @@ extension InputStream {
 
             for try await datum in self {
 
+                guard !Task.isCancelled else {
+                    break
+                }
+
                 try await destination.write(datum)
                 count += 1
 
@@ -38,6 +46,8 @@ extension InputStream {
                     break
                 }
             }
+
+            try await destination.flush()
         }
     }
 }

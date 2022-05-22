@@ -34,6 +34,15 @@ extension OutputStream {
             try await write(datum)
         }
     }
+
+    public func write<Source: AsyncSequence>(
+        source: Source
+    ) async throws where Source.Element == Datum {
+
+        for try await datum in source {
+            try await write(datum)
+        }
+    }
 }
 
 public class AnyOutputStream<Datum> : OutputStream {
