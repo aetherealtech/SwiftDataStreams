@@ -55,7 +55,7 @@ class FilteredInputStream<Datum> : InputStream {
 
     func skip(count: Int) async throws -> Int {
 
-        for skipped in 0..<count {
+        for _ in 0..<count {
 
             guard try await readAhead() != nil else {
 

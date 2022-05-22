@@ -10,31 +10,23 @@ extension InputStream {
 
     public func broadcast() -> EventStream<Datum> {
 
-        EventStream(
-            registerValues: { (onValue, onComplete) in
-
-                BroadcastInputStream(
-                    source: self,
-                    onValue: onValue,
-                    onComplete: onComplete
-                )
-            },
-            unregister: { registrant in
-
-            }
+        BroadcastInputStream(
+            source: self
         )
     }
 }
 
-public class BroadcastInputStream<Source: InputStream> {
+public class BroadcastInputStream<Source: InputStream> : EventStream<Source.Datum> {
 
     public typealias Value = Source.Datum
 
     init(
-        source: Source,
-        onValue: @escaping (Value) -> Void,
-        onComplete: @escaping () -> Void
+        source: Source
     ) {
+
+        let eventChannel = SimpleChannel<Event<Value>>()
+
+        super.init(channel: eventChannel)
 
         Task { [weak self] in
 
@@ -44,14 +36,12 @@ public class BroadcastInputStream<Source: InputStream> {
 
                     guard self != nil else { break }
 
-                    onValue(value)
+                    eventChannel.publish(value)
                 }
             }
             catch {
 
             }
-
-            onComplete()
         }
     }
 }

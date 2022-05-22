@@ -12,40 +12,25 @@ class BufferedEventStreamTests: XCTestCase {
 
     func testBufferedEventStream() async throws {
 
-        var capturePublish: ((Int) -> Void)!
-        var captureComplete: (() -> Void)!
+        let channel = SimpleChannel<Int>()
 
-        let eventStream = EventStream<Int>(
-            registerValues: { streamPublish, streamComplete in
-
-                capturePublish = streamPublish
-                captureComplete = streamComplete
-            },
-            unregister: { _ in
-
-            }
-        )
-
-        let publish = capturePublish!
-        let complete = captureComplete!
+        let eventStream = channel.asStream()
 
         let bufferedEventStream = eventStream.buffered()
 
         let values = Array(0..<10)
 
-        Task {
+        try await Task {
 
             for value in values {
 
                 try await Task.sleep(nanoseconds: UInt64.random(in: 1000..<1000000))
 
-                publish(value)
+                channel.publish(value)
             }
+        }.finish()
 
-            complete()
-        }
-
-        let events: [Event<Int>] = try await bufferedEventStream.readAll()
+        let events: [Event<Int>] = try await bufferedEventStream.read(count: values.count)
 
         let result = events.map { event in event.value }
 

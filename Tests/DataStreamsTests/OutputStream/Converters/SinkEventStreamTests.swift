@@ -13,22 +13,9 @@ class SinkEventStreamTests: XCTestCase {
 
     func testSinkEventStream() async throws {
 
-        var capturePublish: ((Int) -> Void)!
-        var captureComplete: (() -> Void)!
+        let channel = SimpleChannel<Int>()
 
-        let eventStream = EventStream<Int>(
-            registerValues: { streamPublish, streamComplete in
-
-                capturePublish = streamPublish
-                captureComplete = streamComplete
-            },
-            unregister: { _ in
-
-            }
-        )
-
-        let publish = capturePublish!
-        let complete = captureComplete!
+        let eventStream = channel.asStream()
 
         let outputStream = [Event<Int>]().asStream()
 
@@ -36,19 +23,15 @@ class SinkEventStreamTests: XCTestCase {
 
         let values = Array(0..<10)
 
-        Task {
+        try await Task {
 
             for value in values {
 
                 try await Task.sleep(nanoseconds: UInt64.random(in: 1000..<1000000))
 
-                publish(value)
+                channel.publish(value)
             }
-
-            complete()
-        }
-
-        try await Task.sleep(nanoseconds: UInt64(1e9))
+        }.finish()
 
         XCTAssertEqual(outputStream.data.map { event in event.value }, values)
 

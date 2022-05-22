@@ -23,14 +23,13 @@ public class BufferedEventStream<Value> : InputStream {
     init(source: EventStream<Value>) {
 
         sourceSubscription = source.subscribe(
-            onEvent: onNext,
-            onComplete: onComplete
+            onEvent: onNext
         )
     }
 
     public func hasMore() async throws -> Bool {
 
-        !completed || !buffer.isEmpty
+        true
     }
 
     public func read() async throws -> Datum {
@@ -71,14 +70,7 @@ public class BufferedEventStream<Value> : InputStream {
         waiter.signal()
     }
 
-    private func onComplete() {
-
-        completed = true
-        waiter.signal()
-    }
-
     private let buffer = Buffer<Event<Value>>()
-    private var completed = false
 
     private let waiter = SignalEvent()
 
