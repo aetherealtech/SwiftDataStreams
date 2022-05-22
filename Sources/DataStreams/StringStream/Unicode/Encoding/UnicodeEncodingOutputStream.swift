@@ -13,7 +13,7 @@ extension OutputStream where Datum == Unicode.UTF8.CodeUnit {
             .erase()
     }
 
-    func utf8Characters() -> OutputStringStream {
+    func utf8Characters() -> StringOutputStream {
 
         self
             .utf8Characters()
@@ -30,7 +30,7 @@ extension OutputStream where Datum == Unicode.UTF16.CodeUnit {
             .erase()
     }
 
-    func utf16Characters() -> OutputStringStream {
+    func utf16Characters() -> StringOutputStream {
 
         self
             .utf16Characters()
@@ -47,7 +47,7 @@ extension OutputStream where Datum == Unicode.UTF32.CodeUnit {
             .erase()
     }
 
-    func utf32Characters() -> OutputStringStream {
+    func utf32Characters() -> StringOutputStream {
 
         self
             .utf32Characters()

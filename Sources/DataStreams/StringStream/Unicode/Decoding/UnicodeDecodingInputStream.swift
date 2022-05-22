@@ -15,7 +15,7 @@ extension InputStream where Datum == Unicode.UTF8.CodeUnit {
         UnicodeDecodingInputStream(source: self)
     }
 
-    func utf8String() -> InputStringStream {
+    func utf8String() -> StringInputStream {
 
         self.utf8Scalars()
             .string()
@@ -29,7 +29,7 @@ extension InputStream where Datum == Unicode.UTF16.CodeUnit {
         UnicodeDecodingInputStream(source: self)
     }
 
-    func utf16String() -> InputStringStream {
+    func utf16String() -> StringInputStream {
 
         self.utf16Scalars()
             .string()
@@ -43,7 +43,7 @@ extension InputStream where Datum == Unicode.UTF32.CodeUnit {
         UnicodeDecodingInputStream(source: self)
     }
 
-    func utf32String() -> InputStringStream {
+    func utf32String() -> StringInputStream {
 
         self.utf32Scalars()
             .string()

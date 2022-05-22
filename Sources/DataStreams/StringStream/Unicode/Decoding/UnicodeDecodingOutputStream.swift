@@ -105,6 +105,8 @@ class UnicodeDecodingOutputStream<Codec: UnicodeCodec> : OutputStream {
         while !buffer.isEmpty {
             try await writeBuffer()
         }
+
+        try await dest.flush()
     }
 
     private var bufferSize: Int { 4 / MemoryLayout<Codec.CodeUnit>.size }
