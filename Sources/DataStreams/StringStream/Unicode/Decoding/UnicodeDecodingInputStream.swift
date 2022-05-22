@@ -10,31 +10,49 @@ class UnicodeDecodeError : Error {
 
 extension InputStream where Datum == Unicode.UTF8.CodeUnit {
 
-    func utf8String() -> UnicodeDecodingInputStream<Unicode.UTF8> {
+    func utf8Scalars() -> UnicodeDecodingInputStream<Unicode.UTF8> {
 
         UnicodeDecodingInputStream(source: self)
+    }
+
+    func utf8String() -> InputStringStream {
+
+        self.utf8Scalars()
+            .string()
     }
 }
 
 extension InputStream where Datum == Unicode.UTF16.CodeUnit {
 
-    func utf16String() -> UnicodeDecodingInputStream<Unicode.UTF16> {
+    func utf16Scalars() -> UnicodeDecodingInputStream<Unicode.UTF16> {
 
         UnicodeDecodingInputStream(source: self)
+    }
+
+    func utf16String() -> InputStringStream {
+
+        self.utf16Scalars()
+            .string()
     }
 }
 
 extension InputStream where Datum == Unicode.UTF32.CodeUnit {
 
-    func utf32String() -> UnicodeDecodingInputStream<Unicode.UTF32> {
+    func utf32Scalars() -> UnicodeDecodingInputStream<Unicode.UTF32> {
 
         UnicodeDecodingInputStream(source: self)
+    }
+
+    func utf32String() -> InputStringStream {
+
+        self.utf32Scalars()
+            .string()
     }
 }
 
 class UnicodeDecodingInputStream<Codec: UnicodeCodec> : InputStream {
 
-    typealias Datum = Character
+    typealias Datum = UnicodeScalar
 
     convenience init<Source: InputStream>(
         source: Source
@@ -77,21 +95,21 @@ class UnicodeDecodingInputStream<Codec: UnicodeCodec> : InputStream {
 
     func hasMore() async throws -> Bool {
 
-        if nextCharacter != nil {
+        if nextScalar != nil {
             return true
         }
-        nextCharacter = try await getNextCharacter()
-        return nextCharacter != nil
+        nextScalar = try await getNextScalar()
+        return nextScalar != nil
     }
 
-    func read() async throws -> Character {
+    func read() async throws -> UnicodeScalar {
 
-        if let next = self.nextCharacter {
-            self.nextCharacter = nil
+        if let next = self.nextScalar {
+            self.nextScalar = nil
             return next
         }
 
-        guard let next = try await getNextCharacter() else {
+        guard let next = try await getNextScalar() else {
             throw EndOfStreamError()
         }
 
@@ -111,7 +129,7 @@ class UnicodeDecodingInputStream<Codec: UnicodeCodec> : InputStream {
         return skipped
     }
 
-    private func getNextCharacter() async throws -> Character? {
+    private func getNextScalar() async throws -> UnicodeScalar? {
 
         while buffer.count < bufferSize {
             guard try await source.hasMore() else { break }
@@ -123,7 +141,7 @@ class UnicodeDecodingInputStream<Codec: UnicodeCodec> : InputStream {
         switch result {
 
         case .scalarValue(let value):
-            return Character(value)
+            return value
 
         case .emptyInput:
             return nil
@@ -139,5 +157,5 @@ class UnicodeDecodingInputStream<Codec: UnicodeCodec> : InputStream {
     private var codec: Codec
 
     private var buffer = Buffer<Codec.CodeUnit>()
-    private var nextCharacter: Character?
+    private var nextScalar: UnicodeScalar?
 }

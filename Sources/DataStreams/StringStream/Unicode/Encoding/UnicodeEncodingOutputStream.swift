@@ -6,55 +6,63 @@ import Foundation
 
 extension OutputStream where Datum == Unicode.UTF8.CodeUnit {
 
-    func utf8Characters() -> UnicodeEncodingOutputStream<Unicode.UTF8> {
+    func utf8Characters() -> AnyOutputStream<UnicodeScalar> {
 
-        UnicodeEncodingOutputStream(dest: self)
+        self
+            .flatMap(Unicode.UTF8.encode)
+            .erase()
+    }
+
+    func utf8Characters() -> OutputStringStream {
+
+        self
+            .utf8Characters()
+            .string()
     }
 }
 
 extension OutputStream where Datum == Unicode.UTF16.CodeUnit {
 
-    func utf16Characters() -> UnicodeEncodingOutputStream<Unicode.UTF16> {
+    func utf16Characters() -> AnyOutputStream<UnicodeScalar> {
 
-        UnicodeEncodingOutputStream(dest: self)
+        self
+            .flatMap(Unicode.UTF16.encode)
+            .erase()
+    }
+
+    func utf16Characters() -> OutputStringStream {
+
+        self
+            .utf16Characters()
+            .string()
     }
 }
 
 extension OutputStream where Datum == Unicode.UTF32.CodeUnit {
 
-    func utf32Characters() -> UnicodeEncodingOutputStream<Unicode.UTF32> {
+    func utf32Characters() -> AnyOutputStream<UnicodeScalar> {
 
-        UnicodeEncodingOutputStream(dest: self)
+        self
+            .flatMap(Unicode.UTF32.encode)
+            .erase()
+    }
+
+    func utf32Characters() -> OutputStringStream {
+
+        self
+            .utf32Characters()
+            .string()
     }
 }
 
-class UnicodeEncodingOutputStream<Codec: UnicodeCodec> : OutputStream {
+extension UnicodeCodec {
 
-    typealias Datum = Character
+    static func encode(scalar: UnicodeScalar) throws -> EncodedScalar {
 
-    init<Dest: OutputStream>(
-        dest: Dest
-    ) where Dest.Datum == Codec.CodeUnit {
-
-        self.dest = dest.erase()
-    }
-
-    func write(_ datum: Character) async throws {
-
-        let scalars = datum.unicodeScalars
-
-        for scalar in scalars {
-            guard let encoded = Codec.encode(scalar) else {
-                throw UnicodeEncodeError()
-            }
-
-            try await dest.write(source: encoded)
+        guard let encoded = Self.encode(scalar) else {
+            throw UnicodeEncodeError()
         }
+
+        return encoded
     }
-
-    func flush() async throws {
-
-    }
-
-    private let dest: AnyOutputStream<Codec.CodeUnit>
 }

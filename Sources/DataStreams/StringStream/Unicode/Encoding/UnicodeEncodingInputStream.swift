@@ -8,7 +8,7 @@ class UnicodeEncodeError : Error {
 
 }
 
-extension InputStream where Datum == Character {
+extension InputStream where Datum == UnicodeScalar {
 
     func utf8Characters() -> UnicodeEncodingInputStream<Unicode.UTF8> {
 
@@ -26,13 +26,37 @@ extension InputStream where Datum == Character {
     }
 }
 
+extension InputStream where Datum == Character {
+
+    func utf8Characters() -> UnicodeEncodingInputStream<Unicode.UTF8> {
+
+        self
+            .unicodeScalars()
+            .utf8Characters()
+    }
+
+    func utf16Characters() -> UnicodeEncodingInputStream<Unicode.UTF16> {
+
+        self
+            .unicodeScalars()
+            .utf16Characters()
+    }
+
+    func utf32Characters() -> UnicodeEncodingInputStream<Unicode.UTF32> {
+
+        self
+            .unicodeScalars()
+            .utf32Characters()
+    }
+}
+
 class UnicodeEncodingInputStream<Codec: UnicodeCodec> : InputStream {
 
     typealias Datum = Codec.CodeUnit
 
     init<Source: InputStream>(
         source: Source
-    ) where Source.Datum == Character {
+    ) where Source.Datum == UnicodeScalar {
 
         self.source = source.erase()
     }
@@ -75,16 +99,14 @@ class UnicodeEncodingInputStream<Codec: UnicodeCodec> : InputStream {
 
     private func readNextCharacter() async throws {
 
-        let scalars = try await source.read().unicodeScalars
+        let scalar = try await source.read()
 
-        for scalar in scalars {
-            guard let encoded = Codec.encode(scalar) else {
-                throw UnicodeEncodeError()
-            }
-
-            current.characters = [Codec.CodeUnit](encoded)
-            current.position = 0
+        guard let encoded = Codec.encode(scalar) else {
+            throw UnicodeEncodeError()
         }
+
+        current.characters = [Codec.CodeUnit](encoded)
+        current.position = 0
     }
 
     private class Current {
@@ -99,6 +121,6 @@ class UnicodeEncodingInputStream<Codec: UnicodeCodec> : InputStream {
         var position: Int
     }
 
-    private let source: AnyInputStream<Character>
+    private let source: AnyInputStream<UnicodeScalar>
     private let current = Current()
 }
