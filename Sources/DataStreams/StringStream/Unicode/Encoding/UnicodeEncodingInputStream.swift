@@ -10,17 +10,17 @@ class UnicodeEncodeError : Error {
 
 extension InputStream where Datum == UnicodeScalar {
 
-    func utf8Characters() -> UnicodeEncodingInputStream<Unicode.UTF8> {
+    func utf8CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF8> {
 
         UnicodeEncodingInputStream(source: self)
     }
 
-    func utf16Characters() -> UnicodeEncodingInputStream<Unicode.UTF16> {
+    func utf16CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF16> {
 
         UnicodeEncodingInputStream(source: self)
     }
 
-    func utf32Characters() -> UnicodeEncodingInputStream<Unicode.UTF32> {
+    func utf32CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF32> {
 
         UnicodeEncodingInputStream(source: self)
     }
@@ -28,25 +28,25 @@ extension InputStream where Datum == UnicodeScalar {
 
 extension InputStream where Datum == Character {
 
-    func utf8Characters() -> UnicodeEncodingInputStream<Unicode.UTF8> {
+    func utf8CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF8> {
 
         self
             .unicodeScalars()
-            .utf8Characters()
+            .utf8CodePoints()
     }
 
-    func utf16Characters() -> UnicodeEncodingInputStream<Unicode.UTF16> {
+    func utf16CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF16> {
 
         self
             .unicodeScalars()
-            .utf16Characters()
+            .utf16CodePoints()
     }
 
-    func utf32Characters() -> UnicodeEncodingInputStream<Unicode.UTF32> {
+    func utf32CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF32> {
 
         self
             .unicodeScalars()
-            .utf32Characters()
+            .utf32CodePoints()
     }
 }
 

@@ -62,7 +62,7 @@ extension InputStream where Datum == Character {
     func utf8Bytes() -> ByteInputStream {
 
         self
-            .utf8Characters()
+            .utf8CodePoints()
             .erase()
     }
 
@@ -71,7 +71,7 @@ extension InputStream where Datum == Character {
     ) -> ByteInputStream {
 
         self
-            .utf16Characters()
+            .utf16CodePoints()
             .bytes(endianess: endianness)
             .erase()
     }
@@ -81,7 +81,7 @@ extension InputStream where Datum == Character {
     ) -> ByteInputStream {
 
         self
-            .utf32Characters()
+            .utf32CodePoints()
             .bytes(endianess: endianness)
             .erase()
     }
