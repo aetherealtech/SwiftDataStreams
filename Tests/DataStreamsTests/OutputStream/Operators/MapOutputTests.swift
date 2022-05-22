@@ -13,7 +13,7 @@ class MapOutputTests: XCTestCase {
 
         let transform: (Int) -> String = { value in "\(value)" }
 
-        let destination = [String]().asStream()
+        let destination = [String]().asInputOutputStream()
 
         let stream = destination
             .map(transform)

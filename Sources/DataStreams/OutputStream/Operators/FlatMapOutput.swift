@@ -6,7 +6,7 @@ import Foundation
 
 extension OutputStream {
 
-    func flatMap<Source, OuterSequence: Sequence>(
+    public func flatMap<Source, OuterSequence: Sequence>(
         _ transform: @escaping (Source) async throws -> OuterSequence
     ) -> AnyOutputStream<Source> where OuterSequence.Element == Datum {
 
@@ -15,7 +15,7 @@ extension OutputStream {
             .map(transform)
     }
 
-    func flatMap<Source, OuterSequence: AsyncSequence>(
+    public func flatMap<Source, OuterSequence: AsyncSequence>(
         _ transform: @escaping (Source) async throws -> OuterSequence
     ) -> AnyOutputStream<Source> where OuterSequence.Element == Datum {
 

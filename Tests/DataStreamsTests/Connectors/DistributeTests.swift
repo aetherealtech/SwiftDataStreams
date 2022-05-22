@@ -11,7 +11,7 @@ class DistributeTests: XCTestCase {
 
         let source = Array(0..<10)
 
-        let destinations = (0..<5).map { _ in [Int]().asStream() }
+        let destinations = (0..<5).map { _ in [Int]().asInputOutputStream() }
 
         let stream = destinations
             .distributed()

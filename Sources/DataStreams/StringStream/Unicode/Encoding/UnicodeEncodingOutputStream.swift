@@ -6,51 +6,51 @@ import Foundation
 
 extension OutputStream where Datum == Unicode.UTF8.CodeUnit {
 
-    func utf8Characters() -> AnyOutputStream<UnicodeScalar> {
+    func unicodeScalars() -> AnyOutputStream<UnicodeScalar> {
 
         self
             .flatMap(Unicode.UTF8.encode)
             .erase()
     }
 
-    func utf8Characters() -> StringOutputStream {
+    func unicodeString() -> StringOutputStream {
 
         self
-            .utf8Characters()
+            .unicodeScalars()
             .string()
     }
 }
 
 extension OutputStream where Datum == Unicode.UTF16.CodeUnit {
 
-    func utf16Characters() -> AnyOutputStream<UnicodeScalar> {
+    func unicodeScalars() -> AnyOutputStream<UnicodeScalar> {
 
         self
             .flatMap(Unicode.UTF16.encode)
             .erase()
     }
 
-    func utf16Characters() -> StringOutputStream {
+    func unicodeString() -> StringOutputStream {
 
         self
-            .utf16Characters()
+            .unicodeScalars()
             .string()
     }
 }
 
 extension OutputStream where Datum == Unicode.UTF32.CodeUnit {
 
-    func utf32Characters() -> AnyOutputStream<UnicodeScalar> {
+    func unicodeScalars() -> AnyOutputStream<UnicodeScalar> {
 
         self
             .flatMap(Unicode.UTF32.encode)
             .erase()
     }
 
-    func utf32Characters() -> StringOutputStream {
+    func unicodeString() -> StringOutputStream {
 
         self
-            .utf32Characters()
+            .unicodeScalars()
             .string()
     }
 }

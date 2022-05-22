@@ -16,9 +16,9 @@ extension EventStream {
     }
 }
 
-public class BufferedEventStream<Value> : InputStream {
+class BufferedEventStream<Value> : InputStream {
 
-    public typealias Datum = Event<Value>
+    typealias Datum = Event<Value>
 
     init(source: EventStream<Value>) {
 

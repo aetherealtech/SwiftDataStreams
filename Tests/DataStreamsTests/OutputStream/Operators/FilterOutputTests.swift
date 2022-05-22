@@ -11,7 +11,7 @@ class FilterOutputTests: XCTestCase {
 
         let source = Array(0..<10)
 
-        let destination = [Int]().asStream()
+        let destination = [Int]().asInputOutputStream()
 
         let filter: (Int) -> Bool = { value in value % 3 == 0 }
 

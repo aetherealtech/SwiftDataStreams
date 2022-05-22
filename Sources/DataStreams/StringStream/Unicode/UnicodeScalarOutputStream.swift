@@ -6,7 +6,7 @@ import Foundation
 
 extension OutputStream where Datum == Character {
 
-    func unicodeScalars() -> AnyOutputStream<UnicodeScalar> {
+    public func unicodeScalars() -> AnyOutputStream<UnicodeScalar> {
 
         UnicodeScalarOutputStream(dest: self)
             .erase()

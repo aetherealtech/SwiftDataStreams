@@ -6,43 +6,46 @@ import Foundation
 
 extension OutputStream where Datum == UnicodeScalar {
 
-    func utf8Scalars() -> UnicodeDecodingOutputStream<Unicode.UTF8> {
+    public func utf8CodePoints() -> AnyOutputStream<UTF8.CodeUnit> {
 
         UnicodeDecodingOutputStream(dest: self)
+            .erase()
     }
 
-    func utf16Scalars() -> UnicodeDecodingOutputStream<Unicode.UTF16> {
+    public func utf16CodePoints() -> AnyOutputStream<UTF16.CodeUnit> {
 
         UnicodeDecodingOutputStream(dest: self)
+            .erase()
     }
 
-    func utf32Scalars() -> UnicodeDecodingOutputStream<Unicode.UTF32> {
+    public func utf32CodePoints() -> AnyOutputStream<UTF32.CodeUnit> {
 
         UnicodeDecodingOutputStream(dest: self)
+            .erase()
     }
 }
 
 extension OutputStream where Datum == Character {
 
-    func utf8String() -> UnicodeDecodingOutputStream<Unicode.UTF8> {
+    public func utf8CodePoints() -> AnyOutputStream<UTF8.CodeUnit> {
 
         self
             .unicodeScalars()
-            .utf8Scalars()
+            .utf8CodePoints()
     }
 
-    func utf16String() -> UnicodeDecodingOutputStream<Unicode.UTF16> {
+    public func utf16CodePoints() -> AnyOutputStream<UTF16.CodeUnit> {
 
         self
             .unicodeScalars()
-            .utf16Scalars()
+            .utf16CodePoints()
     }
 
-    func utf32String() -> UnicodeDecodingOutputStream<Unicode.UTF32> {
+    public func utf32CodePoints() -> AnyOutputStream<UTF32.CodeUnit> {
 
         self
             .unicodeScalars()
-            .utf32Scalars()
+            .utf32CodePoints()
     }
 }
 

@@ -4,12 +4,12 @@
 
 import Foundation
 
-typealias StringInputStream = AnyInputStream<Character>
-typealias StringOutputStream = AnyOutputStream<Character>
+public typealias StringInputStream = AnyInputStream<Character>
+public typealias StringOutputStream = AnyOutputStream<Character>
 
 extension InputStream where Datum == Character {
 
-    func unicodeScalars() -> AnyInputStream<UnicodeScalar> {
+    public func unicodeScalars() -> AnyInputStream<UnicodeScalar> {
 
         self
             .flatMap { character in character.unicodeScalars }
@@ -18,7 +18,7 @@ extension InputStream where Datum == Character {
 
 extension OutputStream where Datum == UnicodeScalar {
 
-    func string() -> StringOutputStream {
+    public func string() -> StringOutputStream {
 
         self
             .flatMap { character in character.unicodeScalars }
@@ -27,7 +27,7 @@ extension OutputStream where Datum == UnicodeScalar {
 
 extension InputStream where Datum == Character {
 
-    func bytes(
+    public func bytes(
         encoding: String.Encoding
     ) -> ByteInputStream {
         
@@ -58,38 +58,38 @@ extension InputStream where Datum == Character {
             fatalError("String encoding \(encoding.description) not supported")
         }
     }
-    
-    func utf8Bytes() -> ByteInputStream {
+
+    public func utf8Bytes() -> ByteInputStream {
 
         self
             .utf8CodePoints()
             .erase()
     }
 
-    func utf16Bytes(
+    public func utf16Bytes(
         endianness: Endianness
     ) -> ByteInputStream {
 
         self
             .utf16CodePoints()
-            .bytes(endianess: endianness)
+            .bytes(endianness: endianness)
             .erase()
     }
 
-    func utf32Bytes(
+    public func utf32Bytes(
         endianness: Endianness
     ) -> ByteInputStream {
 
         self
             .utf32CodePoints()
-            .bytes(endianess: endianness)
+            .bytes(endianness: endianness)
             .erase()
     }
 }
 
 extension InputStream where Datum == UInt8 {
 
-    func string(
+    public func string(
         encoding: String.Encoding
     ) -> StringInputStream {
 
@@ -120,23 +120,23 @@ extension InputStream where Datum == UInt8 {
             fatalError("String encoding \(encoding.description) not supported")
         }
     }
-    
-    func utf16String(
+
+    public func utf16String(
         endianness: Endianness
     ) -> StringInputStream {
 
         self
-            .fixedWidthInts(endianess: endianness)
+            .asUInt16(endianness: endianness)
             .utf16String()
             .erase()
     }
 
-    func utf32String(
+    public func utf32String(
         endianness: Endianness
     ) -> StringInputStream {
 
         self
-            .fixedWidthInts(endianess: endianness)
+            .asUInt32(endianness: endianness)
             .utf32String()
             .erase()
     }
@@ -144,14 +144,14 @@ extension InputStream where Datum == UInt8 {
 
 extension OutputStream where Datum == UInt8 {
 
-    func string(
+    public func string(
         encoding: String.Encoding
     ) -> StringOutputStream {
 
         switch encoding {
 
         case .ascii, .utf8:
-            return utf8Characters()
+            return unicodeString()
 
         case .utf16:
             return utf16String(endianness: .platform)
@@ -176,23 +176,23 @@ extension OutputStream where Datum == UInt8 {
         }
     }
 
-    func utf16String(
+    public func utf16String(
         endianness: Endianness
     ) -> StringOutputStream {
 
         self
-            .fixedWidthInts(endianess: endianness)
-            .utf16Characters()
+            .asUInt16(endianness: endianness)
+            .unicodeString()
             .erase()
     }
 
-    func utf32String(
+    public func utf32String(
         endianness: Endianness
     ) -> StringOutputStream {
 
         self
-            .fixedWidthInts(endianess: endianness)
-            .utf32Characters()
+            .asUInt32(endianness: endianness)
+            .unicodeString()
             .erase()
     }
 }

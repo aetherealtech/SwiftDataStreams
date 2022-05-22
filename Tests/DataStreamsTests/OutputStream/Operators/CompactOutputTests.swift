@@ -22,7 +22,7 @@ class CompactOutputTests: XCTestCase {
             10
         ]
 
-        let destination = [Int]().asStream()
+        let destination = [Int]().asInputOutputStream()
 
         let stream = destination
             .compactOut()

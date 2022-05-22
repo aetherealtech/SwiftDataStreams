@@ -25,7 +25,7 @@ public class CollectionInputOutputStream<Source: RangeReplaceableCollection> : C
 
 extension RangeReplaceableCollection {
 
-    public func asStream() -> CollectionInputOutputStream<Self> {
+    public func asInputOutputStream() -> CollectionInputOutputStream<Self> {
 
         CollectionInputOutputStream<Self>(source: self)
     }

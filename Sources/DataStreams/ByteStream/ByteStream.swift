@@ -4,61 +4,89 @@
 
 import Foundation
 
-typealias ByteInputStream = AnyInputStream<UInt8>
-typealias ByteOutputStream = AnyOutputStream<UInt8>
+public typealias ByteInputStream = AnyInputStream<UInt8>
+public typealias ByteOutputStream = AnyOutputStream<UInt8>
 
 extension InputStream where Datum == UInt8 {
 
-    func fixedWidthInts<Result: FixedWidthInteger>(
-        endianess: Endianness = .platform
+    public func fixedWidthInts<Result: FixedWidthInteger>(
+        endianness: Endianness = .platform
     ) -> AnyInputStream<Result>  {
 
         self
             .collect(count: Result.byteCount)
-            .map { bytes in try Result(bytes: bytes, endianness: endianess) }
+            .map { bytes in try Result(bytes: bytes, endianness: endianness) }
+    }
+
+    public func asUInt16(
+        endianness: Endianness = .platform
+    ) -> AnyInputStream<UInt16>  {
+
+        fixedWidthInts(endianness: endianness)
+    }
+
+    public func asUInt32(
+        endianness: Endianness = .platform
+    ) -> AnyInputStream<UInt32>  {
+
+        fixedWidthInts(endianness: endianness)
     }
 }
 
 extension InputStream where Datum: FixedWidthInteger {
 
-    func bytes(
-        endianess: Endianness = .platform
+    public func bytes(
+        endianness: Endianness = .platform
     ) -> ByteInputStream  {
 
         self
-            .flatMap { value in value.bytes(endianness: endianess)  }
+            .flatMap { value in value.bytes(endianness: endianness)  }
     }
 }
 
 extension OutputStream where Datum: FixedWidthInteger {
 
-    func bytes(
-        endianess: Endianness = .platform
+    public func bytes(
+        endianness: Endianness = .platform
     ) -> ByteOutputStream  {
 
         self
-            .map { bytes in try Datum(bytes: bytes, endianness: endianess) }
+            .map { bytes in try Datum(bytes: bytes, endianness: endianness) }
             .collect(count: Datum.byteCount)
     }
 }
 
 extension OutputStream where Datum == UInt8 {
 
-    func fixedWidthInts<Result: FixedWidthInteger>(
-        endianess: Endianness = .platform
+    public func fixedWidthInts<Result: FixedWidthInteger>(
+        endianness: Endianness = .platform
     ) -> AnyOutputStream<Result>  {
 
         self
-            .flatMap { value in value.bytes(endianness: endianess) }
+            .flatMap { value in value.bytes(endianness: endianness) }
+    }
+
+    public func asUInt16(
+        endianness: Endianness = .platform
+    ) -> AnyOutputStream<UInt16>  {
+
+        fixedWidthInts(endianness: endianness)
+    }
+
+    public func asUInt32(
+        endianness: Endianness = .platform
+    ) -> AnyOutputStream<UInt32>  {
+
+        fixedWidthInts(endianness: endianness)
     }
 }
 
-enum Endianness {
+public enum Endianness {
 
     case bigEndian
     case littleEndian
 
-    static var platform : Endianness {
+    public static var platform : Endianness {
 
         #if _endian(big)
         return .bigEndian
@@ -70,12 +98,12 @@ enum Endianness {
 
 extension FixedWidthInteger {
 
-    static var byteCount: Int {
+    public static var byteCount: Int {
 
         bitWidth / 4
     }
 
-    init(value: Self, endianness: Endianness) {
+    public init(value: Self, endianness: Endianness) {
 
         switch endianness {
 
@@ -87,7 +115,7 @@ extension FixedWidthInteger {
         }
     }
 
-    func value(endianness: Endianness) -> Self {
+    public func value(endianness: Endianness) -> Self {
 
         switch endianness {
 
@@ -99,12 +127,12 @@ extension FixedWidthInteger {
         }
     }
 
-    init<ByteSequence: Sequence>(bytes: ByteSequence, endianness: Endianness = .platform) throws where ByteSequence.Element == UInt8 {
+    public init<ByteSequence: Sequence>(bytes: ByteSequence, endianness: Endianness = .platform) throws where ByteSequence.Element == UInt8 {
 
         try self.init(contiguousBytes: Array(bytes.prefix(Self.byteCount)))
     }
 
-    init(contiguousBytes: [UInt8], endianness: Endianness = .platform) throws {
+    public init(contiguousBytes: [UInt8], endianness: Endianness = .platform) throws {
 
         guard contiguousBytes.count == Self.byteCount else {
             throw NSError(domain: "", code: 0, userInfo: [NSDebugDescriptionErrorKey: "Invalid number of bytes.  Expected \(Self.byteCount), got \(contiguousBytes.count)"])
@@ -119,7 +147,7 @@ extension FixedWidthInteger {
         self.init(value: value, endianness: endianness)
     }
 
-    func bytes(endianness: Endianness = .platform) -> [UInt8] {
+    public func bytes(endianness: Endianness = .platform) -> [UInt8] {
 
         let value = self.value(endianness: endianness)
 

@@ -6,13 +6,13 @@ import Foundation
 
 extension OutputStream {
 
-    func flatten<OuterSequence: Sequence>() -> AnyOutputStream<OuterSequence> where OuterSequence.Element == Datum {
+    public func flatten<OuterSequence: Sequence>() -> AnyOutputStream<OuterSequence> where OuterSequence.Element == Datum {
 
         FlattenOutputStream(dest: self)
             .erase()
     }
 
-    func flatten<OuterSequence: AsyncSequence>() -> AnyOutputStream<OuterSequence> where OuterSequence.Element == Datum {
+    public func flatten<OuterSequence: AsyncSequence>() -> AnyOutputStream<OuterSequence> where OuterSequence.Element == Datum {
 
         FlattenAsyncOutputStream(dest: self)
             .erase()

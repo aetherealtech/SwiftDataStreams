@@ -6,9 +6,10 @@ import Foundation
 
 extension InputStream {
 
-    func buffered() -> AnySeekableInputStream<Datum> {
+    public func buffered() -> AnySeekableInputStream<Datum> {
 
-        BufferedInputStream(source: self).erase()
+        BufferedInputStream(source: self)
+            .erase()
     }
 }
 

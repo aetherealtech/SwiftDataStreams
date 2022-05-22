@@ -24,7 +24,7 @@ class CompactMapOutputTests: XCTestCase {
 
         let transform: (Int) -> String? = { value in value % 3 == 0 ? "\(value)" : nil }
 
-        let destination = [String]().asStream()
+        let destination = [String]().asInputOutputStream()
 
         let stream = destination
             .compactMapOut(transform)

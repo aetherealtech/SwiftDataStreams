@@ -31,7 +31,7 @@ class PipelinesTests: XCTestCase {
 
         let sourceStream = source.asStream()
 
-        let destination = [Int]().asStream()
+        let destination = [Int]().asInputOutputStream()
 
         let pipeline = sourceStream.connect(to: destination)
 
@@ -54,7 +54,7 @@ class PipelinesTests: XCTestCase {
 
         let sourceStream = source.asStream()
 
-        let destination = [Int]().asStream()
+        let destination = [Int]().asInputOutputStream()
 
         let pipeline = sourceStream.connect(to: destination, limit: UInt64(limit))
 
@@ -89,7 +89,7 @@ class PipelinesTests: XCTestCase {
 
         let sourceStream = source.asStream()
 
-        let destination = [Int]().asStream()
+        let destination = [Int]().asInputOutputStream()
 
         let pipeline = sourceStream.connect(to: destination)
 

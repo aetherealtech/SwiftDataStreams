@@ -16,9 +16,9 @@ extension InputStream {
     }
 }
 
-public class BroadcastInputStream<Source: InputStream> : EventStream<Source.Datum> {
+class BroadcastInputStream<Source: InputStream> : EventStream<Source.Datum> {
 
-    public typealias Value = Source.Datum
+    typealias Value = Source.Datum
 
     init(
         source: Source

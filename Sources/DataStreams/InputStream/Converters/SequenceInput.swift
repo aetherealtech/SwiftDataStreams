@@ -8,9 +8,10 @@ import CoreExtensions
 
 extension Sequence {
 
-    func asStream() -> AnyInputStream<Element> {
+    public func asStream() -> AnyInputStream<Element> {
 
-        SequenceInputStream(source: self).erase()
+        SequenceInputStream(source: self)
+            .erase()
     }
 }
 

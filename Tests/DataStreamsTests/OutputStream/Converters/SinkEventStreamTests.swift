@@ -17,7 +17,7 @@ class SinkEventStreamTests: XCTestCase {
 
         let eventStream = channel.asStream()
 
-        let outputStream = [Event<Int>]().asStream()
+        let outputStream = [Event<Int>]().asInputOutputStream()
 
         let subscription = eventStream.sink(to: outputStream)
 

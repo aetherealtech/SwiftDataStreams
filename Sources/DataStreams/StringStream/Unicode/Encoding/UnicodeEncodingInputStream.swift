@@ -4,45 +4,48 @@
 
 import Foundation
 
-class UnicodeEncodeError : Error {
+public class UnicodeEncodeError : Error {
 
 }
 
 extension InputStream where Datum == UnicodeScalar {
 
-    func utf8CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF8> {
+    public func utf8CodePoints() -> AnyInputStream<UTF8.CodeUnit> {
 
-        UnicodeEncodingInputStream(source: self)
+        UnicodeEncodingInputStream<UTF8>(source: self)
+            .erase()
     }
 
-    func utf16CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF16> {
+    public func utf16CodePoints() -> AnyInputStream<UTF16.CodeUnit> {
 
-        UnicodeEncodingInputStream(source: self)
+        UnicodeEncodingInputStream<UTF16>(source: self)
+            .erase()
     }
 
-    func utf32CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF32> {
+    public func utf32CodePoints() -> AnyInputStream<UTF32.CodeUnit> {
 
-        UnicodeEncodingInputStream(source: self)
+        UnicodeEncodingInputStream<UTF32>(source: self)
+            .erase()
     }
 }
 
 extension InputStream where Datum == Character {
 
-    func utf8CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF8> {
+    public func utf8CodePoints() -> AnyInputStream<UTF8.CodeUnit> {
 
         self
             .unicodeScalars()
             .utf8CodePoints()
     }
 
-    func utf16CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF16> {
+    public func utf16CodePoints() -> AnyInputStream<UTF16.CodeUnit> {
 
         self
             .unicodeScalars()
             .utf16CodePoints()
     }
 
-    func utf32CodePoints() -> UnicodeEncodingInputStream<Unicode.UTF32> {
+    public func utf32CodePoints() -> AnyInputStream<UTF32.CodeUnit> {
 
         self
             .unicodeScalars()

@@ -11,7 +11,7 @@ class TStreamTests: XCTestCase {
 
         let source = Array(0..<10)
 
-        let destination = [Int]().asStream()
+        let destination = [Int]().asInputOutputStream()
 
         let stream = source
                 .asStream()

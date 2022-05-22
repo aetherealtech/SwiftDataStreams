@@ -4,18 +4,19 @@
 
 import Foundation
 
-class UnicodeDecodeError : Error {
+public class UnicodeDecodeError : Error {
 
 }
 
 extension InputStream where Datum == Unicode.UTF8.CodeUnit {
 
-    func utf8Scalars() -> UnicodeDecodingInputStream<Unicode.UTF8> {
+    public func utf8Scalars() -> AnyInputStream<UnicodeScalar> {
 
         UnicodeDecodingInputStream(source: self)
+            .erase()
     }
 
-    func utf8String() -> StringInputStream {
+    public func utf8String() -> StringInputStream {
 
         self.utf8Scalars()
             .string()
@@ -24,12 +25,13 @@ extension InputStream where Datum == Unicode.UTF8.CodeUnit {
 
 extension InputStream where Datum == Unicode.UTF16.CodeUnit {
 
-    func utf16Scalars() -> UnicodeDecodingInputStream<Unicode.UTF16> {
+    public func utf16Scalars() -> AnyInputStream<UnicodeScalar> {
 
         UnicodeDecodingInputStream(source: self)
+            .erase()
     }
 
-    func utf16String() -> StringInputStream {
+    public func utf16String() -> StringInputStream {
 
         self.utf16Scalars()
             .string()
@@ -38,12 +40,13 @@ extension InputStream where Datum == Unicode.UTF16.CodeUnit {
 
 extension InputStream where Datum == Unicode.UTF32.CodeUnit {
 
-    func utf32Scalars() -> UnicodeDecodingInputStream<Unicode.UTF32> {
+    public func utf32Scalars() -> AnyInputStream<UnicodeScalar> {
 
         UnicodeDecodingInputStream(source: self)
+            .erase()
     }
 
-    func utf32String() -> StringInputStream {
+    public func utf32String() -> StringInputStream {
 
         self.utf32Scalars()
             .string()

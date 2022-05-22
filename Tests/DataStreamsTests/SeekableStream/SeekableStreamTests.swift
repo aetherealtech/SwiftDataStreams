@@ -59,7 +59,7 @@ class SeekableStreamTests: XCTestCase {
             10
         ]
 
-        let sourceStream = source.asStream()
+        let sourceStream = source.asInputOutputStream()
             .erase()
 
         var succeeded = try await sourceStream.seek(position: .beginning)

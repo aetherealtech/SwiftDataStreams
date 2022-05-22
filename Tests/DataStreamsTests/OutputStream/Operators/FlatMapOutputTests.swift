@@ -21,7 +21,7 @@ class FlatMapOutputTests: XCTestCase {
 
         let expectedValues = source.flatMap(transform)
 
-        let destination = [String]().asStream()
+        let destination = [String]().asInputOutputStream()
 
         let stream = destination
             .flatMap(transform)

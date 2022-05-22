@@ -20,7 +20,7 @@ class FlattenOutputTests: XCTestCase {
 
         let expectedValues = source.flatten()
 
-        let destination = [String]().asStream()
+        let destination = [String]().asInputOutputStream()
 
         let stream: AnyOutputStream<AnyInputStream<String>> = destination
             .flatten()
