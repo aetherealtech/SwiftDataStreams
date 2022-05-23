@@ -7,19 +7,6 @@ import CoreExtensions
 
 @testable import DataStreams
 
-extension Task {
-
-    func finish() async throws -> Void where Success == Void, Failure == Error {
-
-        _ = try await value
-    }
-
-    func finish() async -> Void where Success == Void, Failure == Never {
-
-        _ = await value
-    }
-}
-
 class PipelinesTests: XCTestCase {
 
     func testConnect() async throws {

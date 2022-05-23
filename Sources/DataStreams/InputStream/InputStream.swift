@@ -17,6 +17,9 @@ public protocol InputStream : AnyObject, AsyncSequence, AsyncIteratorProtocol wh
 
 public struct EndOfStreamError : Error {
 
+    public init() {
+
+    }
 }
 
 extension InputStream {
