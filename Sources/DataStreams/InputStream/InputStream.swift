@@ -71,6 +71,24 @@ extension InputStream {
         return result
     }
 
+    public func readUntil<Destination: RangeReplaceableCollection>(
+        destination: Destination = Destination(),
+        stopCondition: (Datum) -> Bool
+    ) async throws -> Destination where Destination.Element == Datum {
+
+        var result = destination
+
+        while try await hasMore() {
+            let next = try await read()
+            result.append(next)
+            if stopCondition(next) {
+                break
+            }
+        }
+
+        return result
+    }
+
     public func makeAsyncIterator() -> Self {
 
         self
